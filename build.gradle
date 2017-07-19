@@ -41,6 +41,9 @@ test {
     useTestNG()
 }
 
+task wrapper(type: Wrapper) {
+   gradleVersion = '2.0' //version required
+}
 
 task seleniumTest(type:Test) {
     outputs.upToDateWhen { false }
