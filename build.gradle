@@ -1,0 +1,61 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'war'
+
+group = 'MDAS Frontend'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+
+dependencies {
+    compile group: 'com.coveros', name: 'selenified', version: '2.0.0'
+}
+
+// Set source directory
+sourceSets {
+  test {
+    java {
+      srcDir 'src/test/java'
+    }
+  }
+  seleniumTest {
+    java {
+      compileClasspath += main.output + test.output
+      runtimeClasspath += main.output + test.output
+      srcDir 'src/test/java'
+    }
+  }
+}
+
+configurations {
+    seleniumTestCompile.extendsFrom testCompile
+    seleniumTestRuntime.extendsFrom testRuntime
+}
+
+test {
+    useTestNG()
+}
+
+
+task seleniumTest(type:Test) {
+    outputs.upToDateWhen { false }
+    testClassesDir = project.sourceSets.seleniumTest.output.classesDir
+    classpath = project.sourceSets.seleniumTest.runtimeClasspath
+    useTestNG() {
+        systemProperties System.getProperties()
+        if (project.hasProperty("suiteXmlFile")) {
+            suites project.getProperty("suiteXmlFile")
+        } else {
+            suites "sample.xml" 
+        }
+        if (project.hasProperty("groups")) {
+            includeGroups project.getProperty("groups")
+        }
+    }
+}
+
