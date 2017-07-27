@@ -2,6 +2,7 @@ package coveros.getting_started;
 
 import java.io.IOException;
 
+import org.openqa.selenium.Keys;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -48,7 +49,7 @@ public class SampleTests extends TestBase {
 		Assert asserts = this.asserts.get();
 		// perform some actions
 		actions.type(Locator.NAME, "q", searchTerm);
-		actions.click(Locator.NAME, "btnG");
+		actions.type(Locator.NAME, "q", Keys.ENTER);
 		actions.waitForElementDisplayed(Locator.ID, "resultStats");
 		asserts.compareTitle(searchTerm + " - Google Search");
 		// verify no issues
