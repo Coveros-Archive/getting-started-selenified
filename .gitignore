@@ -27,3 +27,5 @@ gradle-app.setting
 # Cache of project
 .gradletasknamecache
 
+# Selenified output
+/test-output/

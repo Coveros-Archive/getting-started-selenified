@@ -24,9 +24,10 @@ public class SampleTests extends TestBase {
 		setVersion("0.0.1");
 	}
 
+	// Had to change these values so google would cooperate and not change the elements. Consider deploying our own webapp for testing.
 	@DataProvider(name = "google search terms", parallel = true)
 	public Object[][] DataSetOptions() {
-		return new Object[][] { new Object[] { "python" }, new Object[] { "perl" }, new Object[] { "bash" }, };
+		return new Object[][] { new Object[] { "Max Saperstone" }, new Object[] { "perl" }, new Object[] { "Matt Grasberger" } };
 	}
 
 	@Test(groups = { "sample" }, description = "A sample test to check a title")
@@ -48,7 +49,7 @@ public class SampleTests extends TestBase {
 		Assert asserts = this.asserts.get();
 		// perform some actions
 		actions.type(Locator.NAME, "q", searchTerm);
-		actions.click(Locator.NAME, "btnG");
+		actions.click(Locator.NAME, "btnK");
 		actions.waitForElementDisplayed(Locator.ID, "resultStats");
 		asserts.compareTitle(searchTerm + " - Google Search");
 		// verify no issues
