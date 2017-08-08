@@ -1,3 +1,6 @@
+plugins {
+    id 'play'
+}
 apply plugin: 'java'
 apply plugin: 'maven'
 apply plugin: 'war'
@@ -9,10 +12,28 @@ targetCompatibility = 1.8
 
 repositories {
     mavenCentral()
+    jcenter()
+    maven {
+        name "typesafe-maven-release"
+        url "https://repo.typesafe.com/typesafe/maven-releases"
+    }
+    ivy {
+        name "typesafe-ivy-release"
+        url "https://repo.typesafe.com/typesafe/ivy-releases"
+        layout "ivy"
+    }
 }
 
 dependencies {
     compile group: 'com.coveros', name: 'selenified', version: '2.0.0'
+}
+
+model {
+    components {
+        play {
+            platform play: '2.5.x', scala: '2.11'
+        }
+    }
 }
 
 // Set source directory
