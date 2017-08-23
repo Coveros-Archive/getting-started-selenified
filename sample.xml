@@ -1,13 +1,14 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Sample Suite" parallel="methods" thread-count="20" verbose="3" >
-  <listeners>
-    <listener class-name="com.coveros.selenified.utilities.Transformer" />
-  </listeners>
+<suite name="Sample Suite" parallel="methods" thread-count="20"
+	verbose="3">
+	<listeners>
+		<listener class-name="com.coveros.selenified.utilities.Transformer" />
+	</listeners>
 
-  <test name="Sample Test" >
-    <packages>
-      <package name="coveros.getting_started" />
-   </packages>
- </test>
+	<test name="Sample Test">
+		<packages>
+			<package name="coveros.getting_started" />
+		</packages>
+	</test>
 </suite>
