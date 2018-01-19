@@ -1,0 +1,56 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+
+group = 'Selenified'
+version = '0.0.1-SNAPSHOT'
+
+description = "Gradle build for Selenified"
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+        
+     maven { url "http://repo.maven.apache.org/maven2" }
+}
+dependencies {
+    // https://mvnrepository.com/artifact/com.coveros/selenified
+    compile group: 'com.coveros', name: 'selenified', version: '3.0.0'
+}
+// Set source directory for tests
+sourceSets {
+    seleniumTest {
+        java {
+            compileClasspath += main.output
+            runtimeClasspath += main.output
+            srcDirs = ['src/test/java/coveros/getting_started']
+        }
+    }
+}
+
+configurations {
+    seleniumTestCompile.extendsFrom testCompile
+    seleniumTestRuntime.extendsFrom testRuntime
+}
+
+test {
+    outputs.upToDateWhen { false }
+    useTestNG()
+}
+
+task seleniumTest(type:Test) {
+    outputs.upToDateWhen { false }
+    testClassesDir = project.sourceSets.seleniumTest.output.classesDir
+    classpath = project.sourceSets.seleniumTest.runtimeClasspath
+    useTestNG() {
+        systemProperties System.getProperties()
+        if (project.hasProperty("suiteXmlFile")) {
+            suites project.getProperty("suiteXmlFile")
+        } else {
+            suites "sample.xml"
+        }
+        if (project.hasProperty("groups")) {
+            includeGroups project.getProperty("groups")
+        }
+    }
+}

@@ -14,3 +14,10 @@
 # Maven
 log/
 target/
+
+# Gradle
+build/
+.gradle
+
+# Ant/Ivy
+lib/
